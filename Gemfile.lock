@@ -191,6 +191,7 @@ DEPENDENCIES
   font-awesome-sass
   jbuilder (~> 2.0)
   jquery-rails
+  nokogiri (~> 1.6, >= 1.6.6.2)
   pg (~> 0.15)
   puma
   rails (= 4.2.5.1)

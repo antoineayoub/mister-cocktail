@@ -46,6 +46,8 @@ group :development, :test do
   gem 'byebug'
   gem 'better_errors'
   gem 'binding_of_caller', '~> 0.7.2'
+  gem 'nokogiri', '~> 1.6', '>= 1.6.6.2'
+
 end
 
 group :development do
