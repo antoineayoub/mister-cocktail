@@ -1,12 +1,12 @@
 
 <div class="product">
-  <%= link_to upvote_cocktails_path(cocktail) do %>
+  <%= link_to upvote_cocktails_path(cocktail), remote: true do %>
     <div class='product-upvote'>
       <div class="product-arrow"></div>
       <div class='product-count'><%= cocktail.upvote %></div>
     </div>
-  <% end %>
-  <%= link_to(cocktail_path(cocktail)) do %>
+  <% end %>"
+    <%= link_to(cocktail_path(cocktail), "data-toggle" => "modal", "data-target" => "#cocktailModal_<%= cocktail.id %>") do %>
     <%= image_tag cocktail.image, {class: "product-image" } %>
   <% end %>
     <div class='product-body'>
@@ -19,3 +19,34 @@
     <li><a href=""><i class="fa fa-instagram"></i></a></li>
   </ul>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="cocktailModal_<%= cocktail.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= cocktail.name %></h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-6">
+              <%= image_tag cocktail.image_big%>
+            </div>
+            <div class="col-xs-6">
+              <ul>
+                <% cocktail.doses.each do |d| %>
+                  <li><%= d.description %> of <%= d.ingredient.name %></li>
+                  <%= link_to "delete dose", cocktail_dose_path(cocktail, d), method: :delete %>
+                <% end %>
+              </ul>
+               <%= link_to "Add a dose", new_cocktail_dose_path(cocktail) %>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

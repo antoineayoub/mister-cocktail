@@ -29,7 +29,8 @@ class CocktailsController < ApplicationController
       @cocktail.upvote += 1
     end
     @cocktail.save
-    redirect_to cocktails_path
+    @cocktails = Cocktail.all.order(upvote: :desc)
+    # redirect_to cocktails_path
   end
 
   private
