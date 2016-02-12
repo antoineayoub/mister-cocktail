@@ -1,8 +1,8 @@
 class CocktailsController < ApplicationController
-  before_action :find_cocktail, only: [:show]
+  before_action :find_cocktail, only: [:show, :upvote]
 
   def index
-    @cocktails = Cocktail.all
+    @cocktails = Cocktail.all.order(upvote: :desc)
   end
 
   def show
@@ -20,6 +20,16 @@ class CocktailsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def upvote
+    if @cocktail.upvote.nil? || @cocktail.upvote == 0
+      @cocktail.upvote = 1
+    else
+      @cocktail.upvote += 1
+    end
+    @cocktail.save
+    redirect_to cocktails_path
   end
 
   private

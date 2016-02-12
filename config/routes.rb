@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   root 'cocktails#index'
   resources :cocktails, only: [:index, :show, :new, :create ] do
     resources :doses, only: [:new, :create, :destroy]
+    collection do
+      get ':id/upvote' => "cocktails#upvote", as: :upvote
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

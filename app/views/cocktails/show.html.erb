@@ -1,10 +1,32 @@
-<h1><%= @cocktail.name %></h1>
-<%= image_tag @cocktail.image_big%>
+<!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Detail
+  </button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel"><%= @cocktail.name %></h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-6">
+            <%= image_tag @cocktail.image_big%>
+          </div>
+          <div class="col-xs-6">
+            <ul>
+              <% @doses.each do |d| %>
+                <li><%= d.description %> of <%= d.ingredient.name %></li>
+                <%= link_to "delete dose", cocktail_dose_path(@cocktail, d), method: :delete %>
+              <% end %>
+            </ul>
+             <%= link_to "Add a dose", new_cocktail_dose_path(@cocktail) %>
+          </div>
+      </div>
 
-<ul>
-  <% @doses.each do |d| %>
-    <li><%= d.description %> of <%= d.ingredient.name %></li>
-    <%= link_to "delete dose", cocktail_dose_path(@cocktail, d), method: :delete %>
-  <% end %>
-</ul>
-<%= link_to "Add a dose", new_cocktail_dose_path(@cocktail) %>
+    </div>
+  </div>
+</div>

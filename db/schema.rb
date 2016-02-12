@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211224955) do
+ActiveRecord::Schema.define(version: 20160211233439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160211224955) do
     t.string   "image"
     t.string   "category"
     t.string   "image_big"
+    t.integer  "upvote"
   end
 
   create_table "doses", force: :cascade do |t|

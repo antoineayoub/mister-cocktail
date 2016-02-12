@@ -57,7 +57,7 @@ cpt = 1
           unless e.search('img[itemprop=image]').first.nil?
               p image_big = e.search('img[itemprop=image]').first.attributes["src"].value
           end
-          cocktail = Cocktail.create(name: name, description: description, image: image, category: category, image_big: image_big)
+          cocktail = Cocktail.create(name: name, description: description, image: image, category: category, image_big: image_big, upvote: 0)
           unless e.search('span[itemprop=ingredients]').first.nil?
             e.search('span[itemprop=ingredients]').each do |ing|
               if ing.children[0].text.match(/^\d.*/).nil?

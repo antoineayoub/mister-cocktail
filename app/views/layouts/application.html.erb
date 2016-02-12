@@ -9,8 +9,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+<%= render 'shared/navbar' %>
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
