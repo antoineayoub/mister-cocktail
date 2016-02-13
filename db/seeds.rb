@@ -20,6 +20,7 @@
 
 require 'nokogiri'
 require 'open-uri'
+require 'cloudinary'
 
 Cocktail.destroy_all
 Ingredient.destroy_all
@@ -34,15 +35,10 @@ cpt = 1
   url_cocktail = ""
   doc.css('.main section').each do |element|
     category = element.search('h1').text()
-    image = "http://iscomrima-cocktail-yourself.e-monsite.com/medias/images/cocktail-iscomrima.jpg"
-    image_big = "http://iscomrima-cocktail-yourself.e-monsite.com/medias/images/cocktail-iscomrima.jpg"
-    name = element.search('h2[itemprop=name]').text()
+    image = "cocktails/cocktail-iscomrima"
+    p name = element.search('h2[itemprop=name]').text()
     description = element.search('p[itemprop=description]').text().strip
     ingredients_html = element.search('span[itemprop=ingredients]')
-
-    unless element.search('img[itemprop=image]').first.nil?
-      p image = element.search('img[itemprop=image]').first.attributes["src"].value
-    end
 
     ingredients_html.each do |i|
       ingredients << i.text
@@ -55,9 +51,10 @@ cpt = 1
         doc2 = Nokogiri::HTML(response2, nil, 'utf-8')
         doc2.css('article').each do |e|
           unless e.search('img[itemprop=image]').first.nil?
-              p image_big = e.search('img[itemprop=image]').first.attributes["src"].value
+              respons = Cloudinary::Uploader.upload(e.search('img[itemprop=image]').first.attributes["src"].value,:folder => "cocktails/",:use_filename => true, :unique_filename => false)
+              image = respons["public_id"]
           end
-          cocktail = Cocktail.create(name: name, description: description, image: image, category: category, image_big: image_big, upvote: 0)
+          cocktail = Cocktail.create(name: name, description: description, image: image, category: category, upvote: 0)
           unless e.search('span[itemprop=ingredients]').first.nil?
             e.search('span[itemprop=ingredients]').each do |ing|
               if ing.children[0].text.match(/^\d.*/).nil?

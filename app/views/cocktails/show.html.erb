@@ -14,7 +14,7 @@
     <div class="modal-body">
         <div class="row">
           <div class="col-xs-6">
-            <%= image_tag @cocktail.image_big%>
+            <%= cl_image_tag @cocktail.image, height: 300, width: 400, crop: :fill %>
           </div>
           <div class="col-xs-6">
             <ul>
